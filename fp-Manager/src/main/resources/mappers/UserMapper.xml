@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.andam.fp.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.andam.fp.domain.bean.User">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="login_id" jdbcType="VARCHAR" property="loginId" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="signature" jdbcType="VARCHAR" property="signature" />
+    <result column="sex" jdbcType="INTEGER" property="sex"/>
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="intro" jdbcType="VARCHAR" property="intro" />
+    <result column="headportrait" jdbcType="VARCHAR" property="headportrait" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="constellation" jdbcType="CHAR" property="constellation" />
+    <result column="bloodtype" jdbcType="VARCHAR" property="bloodtype" />
+    <result column="schooltag" jdbcType="VARCHAR" property="schooltag" />
+    <result column="vocation" jdbcType="VARCHAR" property="vocation" />
+    <result column="nation_id" jdbcType="INTEGER" property="nationId" />
+    <result column="province_id" jdbcType="INTEGER" property="provinceId" />
+    <result column="city_id" jdbcType="INTEGER" property="cityId" />
+    <result column="friend_ship_policy_id" jdbcType="INTEGER" property="friendShipPolicyId" />
+    <result column="user_state_id" jdbcType="INTEGER" property="userStateId" />
+    <result column="friend_policy_question" jdbcType="VARCHAR" property="friendPolicyQuestion" />
+    <result column="friend_policy_answer" jdbcType="VARCHAR" property="friendPolicyAnswer" />
+    <result column="friend_policy_password" jdbcType="VARCHAR" property="friendPolicyPassword" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="userSql">
+    user_id, login_id, nickname,password, signature,sex, birthday,telephone, user_name, email,intro, headportrait, age,constellation,
+    bloodtype, schooltag,vocation, nation_id, province_id,city_id, friend_ship_policy_id, user_state_id,friend_policy_question,
+    friend_policy_answer,friend_policy_password, create_time
+  </sql>
+
+  <select id="listUserPage" parameterType="com.andam.fp.domain.vo.request.UserQuery" resultMap="BaseResultMap">
+    select <include refid="userSql"/> from user
+    where 1=1
+    <if test="userName != null and userName != ''">
+      and user_name like CONCAT('%',#{userName,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="loginId != null and loginId != ''">
+      and login_id = #{loginId,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="selectUserById" resultMap="BaseResultMap">
+    select * from user where user_id=#{id}
+  </select>
+
+  <insert id="insertUser" parameterType="com.andam.fp.domain.bean.User">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      user_id,
+      <if test="loginId != null">
+        login_id,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="signature != null">
+        signature,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="telephone != null">
+        telephone,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="intro != null">
+        intro,
+      </if>
+      <if test="headportrait != null">
+        headportrait,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="constellation != null">
+        constellation,
+      </if>
+      <if test="bloodtype != null">
+        bloodtype,
+      </if>
+      <if test="schooltag != null">
+        schooltag,
+      </if>
+      <if test="vocation != null">
+        vocation,
+      </if>
+      <if test="nationId != null">
+        nation_id,
+      </if>
+      <if test="provinceId != null">
+        province_id,
+      </if>
+      <if test="cityId != null">
+        city_id,
+      </if>
+      <if test="friendShipPolicyId != null">
+        friend_ship_policy_id,
+      </if>
+      <if test="userStateId != null">
+        user_state_id,
+      </if>
+      <if test="friendPolicyQuestion != null">
+        friend_policy_question,
+      </if>
+      <if test="friendPolicyAnswer != null">
+        friend_policy_answer,
+      </if>
+      <if test="friendPolicyPassword != null">
+        friend_policy_password,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      create_time
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      null,
+      <if test="loginId != null">
+        #{loginId,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null">
+        #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="intro != null">
+        #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="headportrait != null">
+        #{headportrait,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="constellation != null">
+        #{constellation,jdbcType=CHAR},
+      </if>
+      <if test="bloodtype != null">
+        #{bloodtype,jdbcType=VARCHAR},
+      </if>
+      <if test="schooltag != null">
+        #{schooltag,jdbcType=VARCHAR},
+      </if>
+      <if test="vocation != null">
+        #{vocation,jdbcType=VARCHAR},
+      </if>
+      <if test="nationId != null">
+        #{nationId,jdbcType=INTEGER},
+      </if>
+      <if test="provinceId != null">
+        #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null">
+        #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="friendShipPolicyId != null">
+        #{friendShipPolicyId,jdbcType=INTEGER},
+      </if>
+      <if test="userStateId != null">
+        #{userStateId,jdbcType=INTEGER},
+      </if>
+      <if test="friendPolicyQuestion != null">
+        #{friendPolicyQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="friendPolicyAnswer != null">
+        #{friendPolicyAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="friendPolicyPassword != null">
+        #{friendPolicyPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=LONGVARBINARY},
+      </if>
+      NOW()
+    </trim>
+  </insert>
+
+  <update id="updateUser" parameterType="com.andam.fp.domain.bean.User">
+    update user
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="loginId != null">
+        login_id = #{loginId,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null">
+        signature = #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="intro != null">
+        intro = #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="headportrait != null">
+        headportrait = #{headportrait,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="constellation != null">
+        constellation = #{constellation,jdbcType=CHAR},
+      </if>
+      <if test="bloodtype != null">
+        bloodtype = #{bloodtype,jdbcType=VARCHAR},
+      </if>
+      <if test="schooltag != null">
+        schooltag = #{schooltag,jdbcType=VARCHAR},
+      </if>
+      <if test="vocation != null">
+        vocation = #{vocation,jdbcType=VARCHAR},
+      </if>
+      <if test="nationId != null">
+        nation_id = #{nationId,jdbcType=INTEGER},
+      </if>
+      <if test="provinceId != null">
+        province_id = #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null">
+        city_id = #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="friendShipPolicyId != null">
+        friend_ship_policy_id = #{friendShipPolicyId,jdbcType=INTEGER},
+      </if>
+      <if test="userStateId != null">
+        user_state_id = #{userStateId,jdbcType=INTEGER},
+      </if>
+      <if test="friendPolicyQuestion != null">
+        friend_policy_question = #{friendPolicyQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="friendPolicyAnswer != null">
+        friend_policy_answer = #{friendPolicyAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="friendPolicyPassword != null">
+        friend_policy_password = #{friendPolicyPassword,jdbcType=VARCHAR},
+      </if>
+
+    </set>
+    WHERE user_id = #{userId,jdbcType=INTEGER}
+  </update>
+
+  <delete id="deleteUserById" parameterType="Integer">
+    delete from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+
+  <delete id="deleteUserBatch" parameterType="java.util.List">
+    delete from user
+    where user_id in
+    <foreach collection="userIdList" item="item" index="index" separator="," open="(" close=")">
+      #{item,jdbcType=INTEGER}
+    </foreach>
+  </delete>
+
+</mapper>

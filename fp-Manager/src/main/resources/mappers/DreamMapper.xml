@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.andam.fp.mapper.DreamMapper">
+  <resultMap id="BaseResultMap" type="com.andam.fp.domain.bean.Dream">
+    <id column="dream_id" jdbcType="INTEGER" property="dreamId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="dream_name" jdbcType="VARCHAR" property="dreamName" />
+    <result column="dream" jdbcType="VARCHAR" property="dream" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    dream_id, user_id, dream_name, dream, create_time
+  </sql>
+
+  <select id="listDreamPage"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dream
+  </select>
+
+  <insert id="insertDream" parameterType="com.andam.fp.domain.bean.Dream">
+    insert into dream
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        dream_id,
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="dreamName != null">
+        dream_name,
+      </if>
+      <if test="dream != null">
+        dream,
+      </if>
+        create_time,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      null,
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="dreamName != null">
+        #{dreamName,jdbcType=VARCHAR},
+      </if>
+      <if test="dream != null">
+        #{dream,jdbcType=VARCHAR},
+      </if>
+      NOW()
+    </trim>
+  </insert>
+  <update id="updateDream" parameterType="com.andam.fp.domain.bean.Dream">
+    update dream
+    <set>
+      <if test="dreamName != null">
+        dream_name = #{dreamName,jdbcType=VARCHAR},
+      </if>
+      <if test="dream != null">
+        dream = #{dream,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where dream_id = #{dreamId,jdbcType=INTEGER}
+  </update>
+  <delete id="deleteDreamById" parameterType="java.lang.Integer">
+    delete from dream
+    where dream_id in #{dreamId,jdbcType=INTEGER}
+  </delete>
+</mapper>

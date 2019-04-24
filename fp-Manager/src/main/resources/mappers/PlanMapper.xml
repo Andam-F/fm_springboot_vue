@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.andam.fp.mapper.PlanMapper">
+  <resultMap id="BaseResultMap" type="com.andam.fp.domain.bean.Plan">
+    <id column="plan_id" jdbcType="INTEGER" property="planId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="plan_name" jdbcType="CHAR" property="planName" />
+    <result column="plans" jdbcType="VARCHAR" property="plans" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    plan_id, user_id, plan_name, plans, start_time, end_time, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from plan
+    where plan_id = #{planId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from plan
+    where plan_id = #{planId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.andam.fp.domain.bean.Plan">
+    insert into plan (plan_id, user_id, plan_name, 
+      plans, start_time, end_time, 
+      create_time)
+    values (#{planId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{planName,jdbcType=CHAR}, 
+      #{plans,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.andam.fp.domain.bean.Plan">
+    insert into plan
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="planId != null">
+        plan_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="planName != null">
+        plan_name,
+      </if>
+      <if test="plans != null">
+        plans,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="planId != null">
+        #{planId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="planName != null">
+        #{planName,jdbcType=CHAR},
+      </if>
+      <if test="plans != null">
+        #{plans,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.andam.fp.domain.bean.Plan">
+    update plan
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="planName != null">
+        plan_name = #{planName,jdbcType=CHAR},
+      </if>
+      <if test="plans != null">
+        plans = #{plans,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where plan_id = #{planId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.andam.fp.domain.bean.Plan">
+    update plan
+    set user_id = #{userId,jdbcType=INTEGER},
+      plan_name = #{planName,jdbcType=CHAR},
+      plans = #{plans,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where plan_id = #{planId,jdbcType=INTEGER}
+  </update>
+</mapper>

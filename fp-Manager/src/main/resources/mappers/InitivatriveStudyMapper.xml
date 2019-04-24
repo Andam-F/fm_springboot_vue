@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.andam.fp.mapper.InitivatriveStudyMapper">
+  <resultMap id="BaseResultMap" type="com.andam.fp.domain.bean.InitivatriveStudy">
+    <id column="initiative_study_id" jdbcType="INTEGER" property="initiativeStudyId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="initiative_study_name" jdbcType="VARCHAR" property="initiativeStudyName" />
+    <result column="initiative_study_start_time" jdbcType="TIMESTAMP" property="initiativeStudyStartTime" />
+    <result column="initiative_study_end_time" jdbcType="TIMESTAMP" property="initiativeStudyEndTime" />
+    <result column="initiative_study_time" jdbcType="TIMESTAMP" property="initiativeStudyTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.andam.fp.domain.bean.InitivatriveStudy">
+    <result column="initiative_study_type" jdbcType="LONGVARBINARY" property="initiativeStudyType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    initiative_study_id, user_id, initiative_study_name, initiative_study_start_time, 
+    initiative_study_end_time, initiative_study_time
+  </sql>
+  <sql id="Blob_Column_List">
+    initiative_study_type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from initiative_study
+    where initiative_study_id = #{initiativeStudyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from initiative_study
+    where initiative_study_id = #{initiativeStudyId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.andam.fp.domain.bean.InitivatriveStudy">
+    insert into initiative_study (initiative_study_id, user_id, initiative_study_name, 
+      initiative_study_start_time, initiative_study_end_time, 
+      initiative_study_time, initiative_study_type
+      )
+    values (#{initiativeStudyId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{initiativeStudyName,jdbcType=VARCHAR}, 
+      #{initiativeStudyStartTime,jdbcType=TIMESTAMP}, #{initiativeStudyEndTime,jdbcType=TIMESTAMP}, 
+      #{initiativeStudyTime,jdbcType=TIMESTAMP}, #{initiativeStudyType,jdbcType=LONGVARBINARY}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.andam.fp.domain.bean.InitivatriveStudy">
+    insert into initiative_study
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="initiativeStudyId != null">
+        initiative_study_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="initiativeStudyName != null">
+        initiative_study_name,
+      </if>
+      <if test="initiativeStudyStartTime != null">
+        initiative_study_start_time,
+      </if>
+      <if test="initiativeStudyEndTime != null">
+        initiative_study_end_time,
+      </if>
+      <if test="initiativeStudyTime != null">
+        initiative_study_time,
+      </if>
+      <if test="initiativeStudyType != null">
+        initiative_study_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="initiativeStudyId != null">
+        #{initiativeStudyId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="initiativeStudyName != null">
+        #{initiativeStudyName,jdbcType=VARCHAR},
+      </if>
+      <if test="initiativeStudyStartTime != null">
+        #{initiativeStudyStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="initiativeStudyEndTime != null">
+        #{initiativeStudyEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="initiativeStudyTime != null">
+        #{initiativeStudyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="initiativeStudyType != null">
+        #{initiativeStudyType,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.andam.fp.domain.bean.InitivatriveStudy">
+    update initiative_study
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="initiativeStudyName != null">
+        initiative_study_name = #{initiativeStudyName,jdbcType=VARCHAR},
+      </if>
+      <if test="initiativeStudyStartTime != null">
+        initiative_study_start_time = #{initiativeStudyStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="initiativeStudyEndTime != null">
+        initiative_study_end_time = #{initiativeStudyEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="initiativeStudyTime != null">
+        initiative_study_time = #{initiativeStudyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="initiativeStudyType != null">
+        initiative_study_type = #{initiativeStudyType,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where initiative_study_id = #{initiativeStudyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.andam.fp.domain.bean.InitivatriveStudy">
+    update initiative_study
+    set user_id = #{userId,jdbcType=INTEGER},
+      initiative_study_name = #{initiativeStudyName,jdbcType=VARCHAR},
+      initiative_study_start_time = #{initiativeStudyStartTime,jdbcType=TIMESTAMP},
+      initiative_study_end_time = #{initiativeStudyEndTime,jdbcType=TIMESTAMP},
+      initiative_study_time = #{initiativeStudyTime,jdbcType=TIMESTAMP},
+      initiative_study_type = #{initiativeStudyType,jdbcType=LONGVARBINARY}
+    where initiative_study_id = #{initiativeStudyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.andam.fp.domain.bean.InitivatriveStudy">
+    update initiative_study
+    set user_id = #{userId,jdbcType=INTEGER},
+      initiative_study_name = #{initiativeStudyName,jdbcType=VARCHAR},
+      initiative_study_start_time = #{initiativeStudyStartTime,jdbcType=TIMESTAMP},
+      initiative_study_end_time = #{initiativeStudyEndTime,jdbcType=TIMESTAMP},
+      initiative_study_time = #{initiativeStudyTime,jdbcType=TIMESTAMP}
+    where initiative_study_id = #{initiativeStudyId,jdbcType=INTEGER}
+  </update>
+</mapper>

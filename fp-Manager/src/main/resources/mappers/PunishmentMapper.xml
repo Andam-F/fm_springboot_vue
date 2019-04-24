@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.andam.fp.mapper.PunishmentMapper">
+  <resultMap id="BaseResultMap" type="com.andam.fp.domain.bean.Punishment">
+    <id column="punishment_id" jdbcType="INTEGER" property="punishmentId" />
+    <result column="plan_result_id" jdbcType="INTEGER" property="planResultId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="punishment" jdbcType="VARCHAR" property="punishment" />
+    <result column="punishment_time" jdbcType="TIMESTAMP" property="punishmentTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.andam.fp.domain.bean.Punishment">
+    <result column="punishment_state" jdbcType="LONGVARBINARY" property="punishmentState" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    punishment_id, plan_result_id, user_id, punishment, punishment_time
+  </sql>
+  <sql id="Blob_Column_List">
+    punishment_state
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from punishment
+    where punishment_id = #{punishmentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from punishment
+    where punishment_id = #{punishmentId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.andam.fp.domain.bean.Punishment">
+    insert into punishment (punishment_id, plan_result_id, user_id, 
+      punishment, punishment_time, punishment_state
+      )
+    values (#{punishmentId,jdbcType=INTEGER}, #{planResultId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{punishment,jdbcType=VARCHAR}, #{punishmentTime,jdbcType=TIMESTAMP}, #{punishmentState,jdbcType=LONGVARBINARY}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.andam.fp.domain.bean.Punishment">
+    insert into punishment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="punishmentId != null">
+        punishment_id,
+      </if>
+      <if test="planResultId != null">
+        plan_result_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="punishment != null">
+        punishment,
+      </if>
+      <if test="punishmentTime != null">
+        punishment_time,
+      </if>
+      <if test="punishmentState != null">
+        punishment_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="punishmentId != null">
+        #{punishmentId,jdbcType=INTEGER},
+      </if>
+      <if test="planResultId != null">
+        #{planResultId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="punishment != null">
+        #{punishment,jdbcType=VARCHAR},
+      </if>
+      <if test="punishmentTime != null">
+        #{punishmentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="punishmentState != null">
+        #{punishmentState,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.andam.fp.domain.bean.Punishment">
+    update punishment
+    <set>
+      <if test="planResultId != null">
+        plan_result_id = #{planResultId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="punishment != null">
+        punishment = #{punishment,jdbcType=VARCHAR},
+      </if>
+      <if test="punishmentTime != null">
+        punishment_time = #{punishmentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="punishmentState != null">
+        punishment_state = #{punishmentState,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where punishment_id = #{punishmentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.andam.fp.domain.bean.Punishment">
+    update punishment
+    set plan_result_id = #{planResultId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      punishment = #{punishment,jdbcType=VARCHAR},
+      punishment_time = #{punishmentTime,jdbcType=TIMESTAMP},
+      punishment_state = #{punishmentState,jdbcType=LONGVARBINARY}
+    where punishment_id = #{punishmentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.andam.fp.domain.bean.Punishment">
+    update punishment
+    set plan_result_id = #{planResultId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      punishment = #{punishment,jdbcType=VARCHAR},
+      punishment_time = #{punishmentTime,jdbcType=TIMESTAMP}
+    where punishment_id = #{punishmentId,jdbcType=INTEGER}
+  </update>
+</mapper>

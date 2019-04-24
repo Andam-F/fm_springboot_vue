@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.andam.fp.mapper.DatePlayMapper">
+  <resultMap id="BaseResultMap" type="com.andam.fp.domain.bean.DatePlay">
+    <id column="date_play_id" jdbcType="INTEGER" property="datePlayId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="date_play_name" jdbcType="VARCHAR" property="datePlayName" />
+    <result column="date_play_address" jdbcType="VARCHAR" property="datePlayAddress" />
+    <result column="date_play_time" jdbcType="TIMESTAMP" property="datePlayTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.andam.fp.domain.bean.DatePlay">
+    <result column="date_play_project" jdbcType="LONGVARCHAR" property="datePlayProject" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    date_play_id, user_id, date_play_name, date_play_address, date_play_time
+  </sql>
+  <sql id="Blob_Column_List">
+    date_play_project
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from date_play
+    where date_play_id = #{datePlayId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from date_play
+    where date_play_id = #{datePlayId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.andam.fp.domain.bean.DatePlay">
+    insert into date_play (date_play_id, user_id, date_play_name,
+      date_play_address, date_play_time, date_play_project
+      )
+    values (#{datePlayId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{datePlayName,jdbcType=VARCHAR},
+      #{datePlayAddress,jdbcType=VARCHAR}, #{datePlayTime,jdbcType=TIMESTAMP}, #{datePlayProject,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.andam.fp.domain.bean.DatePlay">
+    insert into date_play
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="datePlayId != null">
+        date_play_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="datePlayName != null">
+        date_play_name,
+      </if>
+      <if test="datePlayAddress != null">
+        date_play_address,
+      </if>
+      <if test="datePlayTime != null">
+        date_play_time,
+      </if>
+      <if test="datePlayProject != null">
+        date_play_project,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="datePlayId != null">
+        #{datePlayId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="datePlayName != null">
+        #{datePlayName,jdbcType=VARCHAR},
+      </if>
+      <if test="datePlayAddress != null">
+        #{datePlayAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="datePlayTime != null">
+        #{datePlayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datePlayProject != null">
+        #{datePlayProject,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.andam.fp.domain.bean.DatePlay">
+    update date_play
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="datePlayName != null">
+        date_play_name = #{datePlayName,jdbcType=VARCHAR},
+      </if>
+      <if test="datePlayAddress != null">
+        date_play_address = #{datePlayAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="datePlayTime != null">
+        date_play_time = #{datePlayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datePlayProject != null">
+        date_play_project = #{datePlayProject,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where date_play_id = #{datePlayId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.andam.fp.domain.bean.DatePlay">
+    update date_play
+    set user_id = #{userId,jdbcType=INTEGER},
+      date_play_name = #{datePlayName,jdbcType=VARCHAR},
+      date_play_address = #{datePlayAddress,jdbcType=VARCHAR},
+      date_play_time = #{datePlayTime,jdbcType=TIMESTAMP},
+      date_play_project = #{datePlayProject,jdbcType=LONGVARCHAR}
+    where date_play_id = #{datePlayId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.andam.fp.domain.bean.DatePlay">
+    update date_play
+    set user_id = #{userId,jdbcType=INTEGER},
+      date_play_name = #{datePlayName,jdbcType=VARCHAR},
+      date_play_address = #{datePlayAddress,jdbcType=VARCHAR},
+      date_play_time = #{datePlayTime,jdbcType=TIMESTAMP}
+    where date_play_id = #{datePlayId,jdbcType=INTEGER}
+  </update>
+</mapper>

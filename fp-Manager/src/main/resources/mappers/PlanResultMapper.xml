@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.andam.fp.mapper.PlanResultMapper">
+  <resultMap id="BaseResultMap" type="com.andam.fp.domain.bean.PlanResult">
+    <id column="punishment_result_id" jdbcType="INTEGER" property="punishmentResultId" />
+    <result column="plan_id" jdbcType="INTEGER" property="planId" />
+    <result column="complete_degree" jdbcType="VARCHAR" property="completeDegree" />
+    <result column="plan_summarize" jdbcType="VARCHAR" property="planSummarize" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    punishment_result_id, plan_id, complete_degree, plan_summarize
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from plan_result
+    where punishment_result_id = #{punishmentResultId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from plan_result
+    where punishment_result_id = #{punishmentResultId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.andam.fp.domain.bean.PlanResult">
+    insert into plan_result (punishment_result_id, plan_id, complete_degree, 
+      plan_summarize)
+    values (#{punishmentResultId,jdbcType=INTEGER}, #{planId,jdbcType=INTEGER}, #{completeDegree,jdbcType=VARCHAR}, 
+      #{planSummarize,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.andam.fp.domain.bean.PlanResult">
+    insert into plan_result
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="punishmentResultId != null">
+        punishment_result_id,
+      </if>
+      <if test="planId != null">
+        plan_id,
+      </if>
+      <if test="completeDegree != null">
+        complete_degree,
+      </if>
+      <if test="planSummarize != null">
+        plan_summarize,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="punishmentResultId != null">
+        #{punishmentResultId,jdbcType=INTEGER},
+      </if>
+      <if test="planId != null">
+        #{planId,jdbcType=INTEGER},
+      </if>
+      <if test="completeDegree != null">
+        #{completeDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="planSummarize != null">
+        #{planSummarize,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.andam.fp.domain.bean.PlanResult">
+    update plan_result
+    <set>
+      <if test="planId != null">
+        plan_id = #{planId,jdbcType=INTEGER},
+      </if>
+      <if test="completeDegree != null">
+        complete_degree = #{completeDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="planSummarize != null">
+        plan_summarize = #{planSummarize,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where punishment_result_id = #{punishmentResultId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.andam.fp.domain.bean.PlanResult">
+    update plan_result
+    set plan_id = #{planId,jdbcType=INTEGER},
+      complete_degree = #{completeDegree,jdbcType=VARCHAR},
+      plan_summarize = #{planSummarize,jdbcType=VARCHAR}
+    where punishment_result_id = #{punishmentResultId,jdbcType=INTEGER}
+  </update>
+</mapper>

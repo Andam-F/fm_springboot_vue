@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.andam.fp.mapper.SupportMapper">
+  <resultMap id="BaseResultMap" type="com.andam.fp.domain.bean.Support">
+    <id column="support_id" jdbcType="INTEGER" property="supportId" />
+    <result column="would_like_id" jdbcType="INTEGER" property="wouldLikeId" />
+    <result column="conditions" jdbcType="VARCHAR" property="conditions" />
+    <result column="cash_time" jdbcType="VARCHAR" property="cashTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.andam.fp.domain.bean.Support">
+    <result column="support_state" jdbcType="LONGVARBINARY" property="supportState" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    support_id, would_like_id, conditions, cash_time
+  </sql>
+  <sql id="Blob_Column_List">
+    support_state
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from support
+    where support_id = #{supportId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from support
+    where support_id = #{supportId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.andam.fp.domain.bean.Support">
+    insert into support (support_id, would_like_id, conditions, 
+      cash_time, support_state)
+    values (#{supportId,jdbcType=INTEGER}, #{wouldLikeId,jdbcType=INTEGER}, #{conditions,jdbcType=VARCHAR}, 
+      #{cashTime,jdbcType=VARCHAR}, #{supportState,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.andam.fp.domain.bean.Support">
+    insert into support
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="supportId != null">
+        support_id,
+      </if>
+      <if test="wouldLikeId != null">
+        would_like_id,
+      </if>
+      <if test="conditions != null">
+        conditions,
+      </if>
+      <if test="cashTime != null">
+        cash_time,
+      </if>
+      <if test="supportState != null">
+        support_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="supportId != null">
+        #{supportId,jdbcType=INTEGER},
+      </if>
+      <if test="wouldLikeId != null">
+        #{wouldLikeId,jdbcType=INTEGER},
+      </if>
+      <if test="conditions != null">
+        #{conditions,jdbcType=VARCHAR},
+      </if>
+      <if test="cashTime != null">
+        #{cashTime,jdbcType=VARCHAR},
+      </if>
+      <if test="supportState != null">
+        #{supportState,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.andam.fp.domain.bean.Support">
+    update support
+    <set>
+      <if test="wouldLikeId != null">
+        would_like_id = #{wouldLikeId,jdbcType=INTEGER},
+      </if>
+      <if test="conditions != null">
+        conditions = #{conditions,jdbcType=VARCHAR},
+      </if>
+      <if test="cashTime != null">
+        cash_time = #{cashTime,jdbcType=VARCHAR},
+      </if>
+      <if test="supportState != null">
+        support_state = #{supportState,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where support_id = #{supportId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.andam.fp.domain.bean.Support">
+    update support
+    set would_like_id = #{wouldLikeId,jdbcType=INTEGER},
+      conditions = #{conditions,jdbcType=VARCHAR},
+      cash_time = #{cashTime,jdbcType=VARCHAR},
+      support_state = #{supportState,jdbcType=LONGVARBINARY}
+    where support_id = #{supportId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.andam.fp.domain.bean.Support">
+    update support
+    set would_like_id = #{wouldLikeId,jdbcType=INTEGER},
+      conditions = #{conditions,jdbcType=VARCHAR},
+      cash_time = #{cashTime,jdbcType=VARCHAR}
+    where support_id = #{supportId,jdbcType=INTEGER}
+  </update>
+</mapper>

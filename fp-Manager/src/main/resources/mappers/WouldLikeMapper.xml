@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.andam.fp.mapper.WouldLikeMapper">
+  <resultMap id="BaseResultMap" type="com.andam.fp.domain.bean.WouldLike">
+    <id column="would_like_id" jdbcType="INTEGER" property="wouldLikeId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="would_like_name" jdbcType="VARCHAR" property="wouldLikeName" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.andam.fp.domain.bean.WouldLike">
+    <result column="would_like_degree" jdbcType="LONGVARBINARY" property="wouldLikeDegree" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    would_like_id, user_id, would_like_name
+  </sql>
+  <sql id="Blob_Column_List">
+    would_like_degree
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from would_like
+    where would_like_id = #{wouldLikeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from would_like
+    where would_like_id = #{wouldLikeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.andam.fp.domain.bean.WouldLike">
+    insert into would_like (would_like_id, user_id, would_like_name, 
+      would_like_degree)
+    values (#{wouldLikeId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{wouldLikeName,jdbcType=VARCHAR}, 
+      #{wouldLikeDegree,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.andam.fp.domain.bean.WouldLike">
+    insert into would_like
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="wouldLikeId != null">
+        would_like_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="wouldLikeName != null">
+        would_like_name,
+      </if>
+      <if test="wouldLikeDegree != null">
+        would_like_degree,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="wouldLikeId != null">
+        #{wouldLikeId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="wouldLikeName != null">
+        #{wouldLikeName,jdbcType=VARCHAR},
+      </if>
+      <if test="wouldLikeDegree != null">
+        #{wouldLikeDegree,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.andam.fp.domain.bean.WouldLike">
+    update would_like
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="wouldLikeName != null">
+        would_like_name = #{wouldLikeName,jdbcType=VARCHAR},
+      </if>
+      <if test="wouldLikeDegree != null">
+        would_like_degree = #{wouldLikeDegree,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where would_like_id = #{wouldLikeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.andam.fp.domain.bean.WouldLike">
+    update would_like
+    set user_id = #{userId,jdbcType=INTEGER},
+      would_like_name = #{wouldLikeName,jdbcType=VARCHAR},
+      would_like_degree = #{wouldLikeDegree,jdbcType=LONGVARBINARY}
+    where would_like_id = #{wouldLikeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.andam.fp.domain.bean.WouldLike">
+    update would_like
+    set user_id = #{userId,jdbcType=INTEGER},
+      would_like_name = #{wouldLikeName,jdbcType=VARCHAR}
+    where would_like_id = #{wouldLikeId,jdbcType=INTEGER}
+  </update>
+</mapper>

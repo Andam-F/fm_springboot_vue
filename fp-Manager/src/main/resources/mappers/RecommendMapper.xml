@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.andam.fp.mapper.RecommendMapper">
+  <resultMap id="BaseResultMap" type="com.andam.fp.domain.bean.Recommend">
+    <id column="recommend_id" jdbcType="INTEGER" property="recommendId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="recommend_name" jdbcType="VARCHAR" property="recommendName" />
+    <result column="recommend_path" jdbcType="VARCHAR" property="recommendPath" />
+    <result column="recommend_time" jdbcType="TIMESTAMP" property="recommendTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    recommend_id, user_id, recommend_name, recommend_path, recommend_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from recommend
+    where recommend_id = #{recommendId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from recommend
+    where recommend_id = #{recommendId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.andam.fp.domain.bean.Recommend">
+    insert into recommend (recommend_id, user_id, recommend_name, 
+      recommend_path, recommend_time)
+    values (#{recommendId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{recommendName,jdbcType=VARCHAR}, 
+      #{recommendPath,jdbcType=VARCHAR}, #{recommendTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.andam.fp.domain.bean.Recommend">
+    insert into recommend
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="recommendId != null">
+        recommend_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="recommendName != null">
+        recommend_name,
+      </if>
+      <if test="recommendPath != null">
+        recommend_path,
+      </if>
+      <if test="recommendTime != null">
+        recommend_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="recommendId != null">
+        #{recommendId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="recommendName != null">
+        #{recommendName,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendPath != null">
+        #{recommendPath,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendTime != null">
+        #{recommendTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.andam.fp.domain.bean.Recommend">
+    update recommend
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="recommendName != null">
+        recommend_name = #{recommendName,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendPath != null">
+        recommend_path = #{recommendPath,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendTime != null">
+        recommend_time = #{recommendTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where recommend_id = #{recommendId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.andam.fp.domain.bean.Recommend">
+    update recommend
+    set user_id = #{userId,jdbcType=INTEGER},
+      recommend_name = #{recommendName,jdbcType=VARCHAR},
+      recommend_path = #{recommendPath,jdbcType=VARCHAR},
+      recommend_time = #{recommendTime,jdbcType=TIMESTAMP}
+    where recommend_id = #{recommendId,jdbcType=INTEGER}
+  </update>
+</mapper>

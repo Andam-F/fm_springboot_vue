@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.andam.fp.mapper.UserStateMapper">
+  <resultMap id="BaseResultMap" type="com.andam.fp.domain.bean.UserState">
+    <id column="us_id" jdbcType="INTEGER" property="usId" />
+    <result column="us_name" jdbcType="VARCHAR" property="usName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    us_id, us_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_state
+    where us_id = #{usId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_state
+    where us_id = #{usId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.andam.fp.domain.bean.UserState">
+    insert into user_state (us_id, us_name)
+    values (#{usId,jdbcType=INTEGER}, #{usName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.andam.fp.domain.bean.UserState">
+    insert into user_state
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="usId != null">
+        us_id,
+      </if>
+      <if test="usName != null">
+        us_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="usId != null">
+        #{usId,jdbcType=INTEGER},
+      </if>
+      <if test="usName != null">
+        #{usName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.andam.fp.domain.bean.UserState">
+    update user_state
+    <set>
+      <if test="usName != null">
+        us_name = #{usName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where us_id = #{usId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.andam.fp.domain.bean.UserState">
+    update user_state
+    set us_name = #{usName,jdbcType=VARCHAR}
+    where us_id = #{usId,jdbcType=INTEGER}
+  </update>
+</mapper>

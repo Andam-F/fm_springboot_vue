@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.andam.fp.mapper.AwardMapper">
+  <resultMap id="BaseResultMap" type="com.andam.fp.domain.bean.Award">
+    <id column="award_id" jdbcType="INTEGER" property="awardId" />
+    <result column="plan_result_id" jdbcType="INTEGER" property="planResultId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="awards" jdbcType="VARCHAR" property="awards" />
+    <result column="award_time" jdbcType="TIMESTAMP" property="awardTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.andam.fp.domain.bean.Award">
+    <result column="award_state" jdbcType="LONGVARBINARY" property="awardState" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    award_id, plan_result_id, user_id, awards, award_time
+  </sql>
+  <sql id="Blob_Column_List">
+    award_state
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from award
+    where award_id = #{awardId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from award
+    where award_id = #{awardId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.andam.fp.domain.bean.Award">
+    insert into award (award_id, plan_result_id, user_id, 
+      awards, award_time, award_state
+      )
+    values (#{awardId,jdbcType=INTEGER}, #{planResultId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{awards,jdbcType=VARCHAR}, #{awardTime,jdbcType=TIMESTAMP}, #{awardState,jdbcType=LONGVARBINARY}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.andam.fp.domain.bean.Award">
+    insert into award
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="awardId != null">
+        award_id,
+      </if>
+      <if test="planResultId != null">
+        plan_result_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="awards != null">
+        awards,
+      </if>
+      <if test="awardTime != null">
+        award_time,
+      </if>
+      <if test="awardState != null">
+        award_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="awardId != null">
+        #{awardId,jdbcType=INTEGER},
+      </if>
+      <if test="planResultId != null">
+        #{planResultId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="awards != null">
+        #{awards,jdbcType=VARCHAR},
+      </if>
+      <if test="awardTime != null">
+        #{awardTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="awardState != null">
+        #{awardState,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.andam.fp.domain.bean.Award">
+    update award
+    <set>
+      <if test="planResultId != null">
+        plan_result_id = #{planResultId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="awards != null">
+        awards = #{awards,jdbcType=VARCHAR},
+      </if>
+      <if test="awardTime != null">
+        award_time = #{awardTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="awardState != null">
+        award_state = #{awardState,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where award_id = #{awardId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.andam.fp.domain.bean.Award">
+    update award
+    set plan_result_id = #{planResultId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      awards = #{awards,jdbcType=VARCHAR},
+      award_time = #{awardTime,jdbcType=TIMESTAMP},
+      award_state = #{awardState,jdbcType=LONGVARBINARY}
+    where award_id = #{awardId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.andam.fp.domain.bean.Award">
+    update award
+    set plan_result_id = #{planResultId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      awards = #{awards,jdbcType=VARCHAR},
+      award_time = #{awardTime,jdbcType=TIMESTAMP}
+    where award_id = #{awardId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!-- 本地数据库驱动程序jar包的全路径 -->
+    <classPathEntry location="D:\ProgramFile\jar\mysql-connector-java-8.0.13.jar"/>
+
+    <context id="context" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+
+        <!-- 数据库的相关配置 注意使用高版本MySQL8.0数据库 driverClass要加cj-->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/fm?characterEncoding=utf-8&amp;serverTimezone=UTC"
+                        userId="root"
+                        password="123456"/>
+        <!-- 默认false，把JDBC【DECIMAL】和【NUMERIC】类型解析为 Integer，
+        为true时把JDBC【DECIMAL】和【NUMERIC】类型解析为java.math.BigDecimal -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="true"/>
+        </javaTypeResolver>
+
+        <!-- 实体类生成的位置 -->
+        <javaModelGenerator targetPackage="com.andam.fp.domain.bean" targetProject="src/main/java">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- *Mapper.xml 文件的位置 -->
+        <sqlMapGenerator targetPackage="mappers" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <!-- Mapper 接口文件的位置 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.andam.fp.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+
+        <!-- 相关表的配置 -->
+        <!--<table  schema="ac" tableName="award" domainObjectName="Award" enableCountByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table  schema="ac" tableName="city" domainObjectName="City" enableCountByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table  schema="ac" tableName="count_down" domainObjectName="CountDown" enableCountByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table  schema="ac" tableName="date_play" domainObjectName="DatePlay" enableCountByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table  schema="ac" tableName="date_play_join" domainObjectName="DatePlayJoin" enableCountByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table  schema="ac" tableName="dream" domainObjectName="Dream" enableCountByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table  schema="ac" tableName="dream_state" domainObjectName="DreamState" enableCountByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table  schema="ac" tableName="initiative_study" domainObjectName="InitivatriveStudy" enableCountByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table  schema="ac" tableName="nation" domainObjectName="Nation" enableCountByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table  schema="ac" tableName="plan" domainObjectName="Plan" enableCountByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table  schema="ac" tableName="plan_result" domainObjectName="PlanResult" enableCountByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table  schema="ac" tableName="plan_state" domainObjectName="PlanState" enableCountByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table  schema="ac" tableName="province" domainObjectName="Province" enableCountByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table  schema="ac" tableName="punishment" domainObjectName="Punishment" enableCountByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table  schema="ac" tableName="recommend" domainObjectName="Recommend" enableCountByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table  schema="ac" tableName="share" domainObjectName="Share" enableCountByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table  schema="ac" tableName="supervision" domainObjectName="Supervision" enableCountByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table  schema="ac" tableName="support" domainObjectName="Support" enableCountByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>-->
+        <table  schema="ac" tableName="user" domainObjectName="User" enableCountByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+       <!-- <table  schema="ac" tableName="user_state" domainObjectName="UserState" enableCountByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table  schema="ac" tableName="would_like" domainObjectName="WouldLike" enableCountByExample="false"
+                enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>-->
+
+    </context>
+</generatorConfiguration>
